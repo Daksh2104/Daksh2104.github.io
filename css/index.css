@@ -83,6 +83,11 @@ img {
   white-space: pre-line;
 }
 
+.focussed-image-container {
+  background-color: #005cc5;
+  color: white;
+}
+
 .preview-image {
   height: calc(100% - 3em);
   width: 100%;

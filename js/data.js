@@ -28,4 +28,13 @@ const imagesArray = [
   },
 ];
 
-export { imagesArray };
+/**
+ * Updates a particular element of imagesArray 
+ * @param {*} imageIndex Index of the element to update
+ * @param {*} imageDetails Details of the element
+ */
+const updateImagesArrayElement = (imageIndex, imageDetails) => {
+  imagesArray[imageIndex] = imageDetails;
+};
+
+export { imagesArray, updateImagesArrayElement };
