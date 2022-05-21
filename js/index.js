@@ -1,21 +1,23 @@
-import { imagesArray, updateImagesArrayElement } from "./data.js";
 import {
-  generateAllImagesContainersOnSidebar,
-  getTitleSubParts,
+  renderAllImagesContainersOnSidebar,
   updateSidebarFocussedImage,
-  updateFocussedImageMetadata,
   updateFocussedImageTitleOnSidebar,
 } from "./sidebar.js";
 import { updateMainSection } from "./mainSection.js";
-
-let focussedImageDetails = { isPresent: false, index: -1 };
+import {
+  focussedImageDetails,
+  updateFocussedImageMetadata,
+  getTitleSubParts,
+  imagesArray,
+  updateImagesArrayElement,
+} from "./utility.js";
 
 /**
  * Function to render sidebar and main section content on the page
  * Works on each page load.
  */
 const displayContentOnPage = () => {
-  generateAllImagesContainersOnSidebar(imagesArray, focussedImageDetails);
+  renderAllImagesContainersOnSidebar(imagesArray);
   changeFocussedImage({ ...imagesArray[0], index: 0 });
   document
     .querySelector(".preview-image-title")
@@ -38,8 +40,8 @@ const displayContentOnPage = () => {
  */
 const changeFocussedImage = (newImageDetails) => {
   const newlyFocussedImageIndex = newImageDetails.index;
-  updateSidebarFocussedImage(focussedImageDetails, newlyFocussedImageIndex);
-  updateFocussedImageMetadata(focussedImageDetails, newlyFocussedImageIndex);
+  updateSidebarFocussedImage(newlyFocussedImageIndex);
+  updateFocussedImageMetadata(newlyFocussedImageIndex);
   updateMainSection(newImageDetails);
 };
 
@@ -52,10 +54,14 @@ const updateImageTitle = (event) => {
     event.target.innerHTML
   );
   updateFocussedImageTitleOnSidebar(leftSidePart, rightSidePart);
-  updateImagesArrayElement(imageIndex, {
-    ...imagesArray[focussedImageIndex],
-    title: event.target.innerHTML,
-  });
+  updateImagesArrayElement(
+    focussedImageDetails.index,
+    // Create a new object first which will contain the details of the focussed image and the changed title.
+    {
+      ...imagesArray[focussedImageDetails.index],
+      title: event.target.innerHTML,
+    }
+  );
 };
 
 /**

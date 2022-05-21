@@ -29,12 +29,40 @@ const imagesArray = [
 ];
 
 /**
- * Updates a particular element of imagesArray 
- * @param {*} imageIndex Index of the element to update
- * @param {*} imageDetails Details of the element
+ * Updates a particular element of imagesArray
+ * @param imageIndex Index of the element to update
+ * @param imageDetails Details of the element
  */
 const updateImagesArrayElement = (imageIndex, imageDetails) => {
   imagesArray[imageIndex] = imageDetails;
 };
 
-export { imagesArray, updateImagesArrayElement };
+const focussedImageDetails = { isPresent: false, index: -1 };
+
+/**
+ * Updates the details which will be used to track the currently focussed image
+ * @param newlyFocussedImageIndex Index of the image which is now focussed on
+ */
+const updateFocussedImageMetadata = (newlyFocussedImageIndex) => {
+  focussedImageDetails.index = newlyFocussedImageIndex;
+  focussedImageDetails.isPresent = true;
+};
+
+/**
+ * Splits the title into two sub parts
+ * Will be used to set values of the left and right part of the title
+ * @param title Title of the image which will be splitted into sub-parts
+ * @returns Array of strings consisting of two sub-parts of the title
+ */
+const getTitleSubParts = (title) => {
+  const leftSideSize = Math.max(title.length - 12, 0);
+  return [title.slice(0, leftSideSize), title.slice(leftSideSize)];
+};
+
+export {
+  focussedImageDetails,
+  updateFocussedImageMetadata,
+  getTitleSubParts,
+  imagesArray,
+  updateImagesArrayElement,
+};
