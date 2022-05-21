@@ -1,4 +1,5 @@
 import {
+  imagesArray,
   focussedImageDetails,
   updateFocussedImageMetadata,
   getTitleSubParts,
@@ -36,7 +37,10 @@ const generateImageDetailsContainer = (imageDetails) => {
   imageContainer.addEventListener("click", () => {
     updateSidebarFocussedImage(imageDetails.index);
     updateFocussedImageMetadata(imageDetails.index);
-    updateMainSection(imageDetails);
+    updateMainSection({
+      ...imagesArray[imageDetails.index],
+      index: imageDetails.index,
+    });
   });
   const [leftSideTitle, rightSideTitle] = getTitleSubParts(imageDetails.title);
   imageContainer.innerHTML = `
