@@ -1,16 +1,15 @@
 import {
   imagesArray,
   focussedImageDetails,
-  updateFocussedImageMetadata,
   getTitleSubParts,
 } from "./utility.js";
 import { updateMainSection } from "./mainSection.js";
 
 /**
- * Used to render all the images' containers on the sidebar
- * @param imagesArray Array of images which will be used to generate images containers
+ * Used to render all images' related details on the sidebar
+ * @param imagesArray Array of images which will be used to generate all the images items
  */
-const renderAllImagesContainersOnSidebar = (imagesArray) => {
+const renderAllSidebarItems = (imagesArray) => {
   const sidebar = document.querySelector(".sidebar");
   imagesArray.forEach((imageDetails, imageIndex) => {
     const newImageContainer = generateImageDetailsContainer(
@@ -31,12 +30,12 @@ const renderAllImagesContainersOnSidebar = (imagesArray) => {
  */
 const generateImageDetailsContainer = (imageDetails) => {
   const imageContainer = document.createElement("div");
-  imageContainer.classList.add("image-container");
+  imageContainer.classList.add("sidebar-item");
   imageContainer.setAttribute("id", "index-" + imageDetails.index);
   // On every click will set the current image as the focussed image
   imageContainer.addEventListener("click", () => {
     updateSidebarFocussedImage(imageDetails.index);
-    updateFocussedImageMetadata(imageDetails.index);
+    focussedImageDetails.updateDetails(imageDetails.index);
     updateMainSection({
       ...imagesArray[imageDetails.index],
       index: imageDetails.index,
@@ -45,7 +44,7 @@ const generateImageDetailsContainer = (imageDetails) => {
   const [leftSideTitle, rightSideTitle] = getTitleSubParts(imageDetails.title);
   imageContainer.innerHTML = `
       <img src="${imageDetails.previewImage}"/>
-      <div class="image-container-title">
+      <div class="sidebar-item-title">
           <p class = "title-left-part">${leftSideTitle}</p>
           <p class = "title-right-part">${rightSideTitle}</p>
       </div>
@@ -58,7 +57,7 @@ const generateImageDetailsContainer = (imageDetails) => {
  * @param newlyFocussedImageIndex Index of the image which will be now focussed on
  */
 const updateSidebarFocussedImage = (newlyFocussedImageIndex) => {
-  const previousFocussedImage = focussedImageDetails;
+  const previousFocussedImage = focussedImageDetails.getDetails();
   // If previously a focussed image existed
   if (previousFocussedImage.isPresent) {
     toggleSidebarFocussedImage(previousFocussedImage.index);
@@ -73,7 +72,7 @@ const updateSidebarFocussedImage = (newlyFocussedImageIndex) => {
 const toggleSidebarFocussedImage = (imageIndex) => {
   document
     .querySelector(`#index-${imageIndex}`)
-    .classList.toggle("focussed-image-container");
+    .classList.toggle("sidebar-focussed-item");
 };
 
 /**
@@ -85,15 +84,15 @@ const toggleSidebarFocussedImage = (imageIndex) => {
 const updateFocussedImageTitleOnSidebar = (leftSidePart, rightSidePart) => {
   // Will select the left part of the currently focussed image container and set it's value as leftSidePart
   document
-    .querySelector(".focussed-image-container")
+    .querySelector(".sidebar-focussed-item")
     .querySelector(".title-left-part").innerHTML = leftSidePart;
   document
-    .querySelector(".focussed-image-container")
+    .querySelector(".sidebar-focussed-item")
     .querySelector(".title-right-part").innerHTML = rightSidePart;
 };
 
 export {
-  renderAllImagesContainersOnSidebar,
+  renderAllSidebarItems,
   getTitleSubParts,
   updateSidebarFocussedImage,
   updateFocussedImageTitleOnSidebar,

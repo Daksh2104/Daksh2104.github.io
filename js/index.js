@@ -1,12 +1,11 @@
 import {
-  renderAllImagesContainersOnSidebar,
+  renderAllSidebarItems,
   updateSidebarFocussedImage,
   updateFocussedImageTitleOnSidebar,
 } from "./sidebar.js";
 import { updateMainSection } from "./mainSection.js";
 import {
   focussedImageDetails,
-  updateFocussedImageMetadata,
   getTitleSubParts,
   imagesArray,
   updateImagesArrayElement,
@@ -17,7 +16,7 @@ import {
  * Works on each page load.
  */
 const displayContentOnPage = () => {
-  renderAllImagesContainersOnSidebar(imagesArray);
+  renderAllSidebarItems(imagesArray);
   changeFocussedImage({ ...imagesArray[0], index: 0 });
   document
     .querySelector(".preview-image-title")
@@ -25,7 +24,7 @@ const displayContentOnPage = () => {
   document.addEventListener("keyup", (event) => {
     if (isArrowUpOrArrowDown(event.code)) {
       const newIndex =
-        (focussedImageDetails.index +
+        (focussedImageDetails.getDetails().index +
           imagesArray.length +
           (event.code === "ArrowUp" ? -1 : 1)) %
         imagesArray.length;
@@ -41,7 +40,7 @@ const displayContentOnPage = () => {
 const changeFocussedImage = (newImageDetails) => {
   const newlyFocussedImageIndex = newImageDetails.index;
   updateSidebarFocussedImage(newlyFocussedImageIndex);
-  updateFocussedImageMetadata(newlyFocussedImageIndex);
+  focussedImageDetails.updateDetails(newlyFocussedImageIndex);
   updateMainSection(newImageDetails);
 };
 
@@ -55,10 +54,10 @@ const updateImageTitle = (event) => {
   );
   updateFocussedImageTitleOnSidebar(leftSidePart, rightSidePart);
   updateImagesArrayElement(
-    focussedImageDetails.index,
+    focussedImageDetails.getDetails().index,
     // Create a new object first which will contain the details of the focussed image and the changed title.
     {
-      ...imagesArray[focussedImageDetails.index],
+      ...imagesArray[focussedImageDetails.getDetails().index],
       title: event.target.innerHTML,
     }
   );

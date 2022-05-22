@@ -37,16 +37,21 @@ const updateImagesArrayElement = (imageIndex, imageDetails) => {
   imagesArray[imageIndex] = imageDetails;
 };
 
-const focussedImageDetails = { isPresent: false, index: -1 };
-
 /**
- * Updates the details which will be used to track the currently focussed image
- * @param newlyFocussedImageIndex Index of the image which is now focussed on
+ * Object which privately stores details related to focussed image.
+ * @returns Returns getter and setter functions which can be used to get/ edit focussed image details.
  */
-const updateFocussedImageMetadata = (newlyFocussedImageIndex) => {
-  focussedImageDetails.index = newlyFocussedImageIndex;
-  focussedImageDetails.isPresent = true;
-};
+const focussedImageDetails = (function(){
+  let isPresent = false, index = -1;
+  const getDetails = () => {
+    return { isPresent, index };
+  };
+  const updateDetails = (newlyFocussedImageIndex) => {
+    isPresent = true;
+    index = newlyFocussedImageIndex;
+  };
+  return { getDetails, updateDetails };
+})();
 
 /**
  * Splits the title into two sub parts
@@ -61,7 +66,6 @@ const getTitleSubParts = (title) => {
 
 export {
   focussedImageDetails,
-  updateFocussedImageMetadata,
   getTitleSubParts,
   imagesArray,
   updateImagesArrayElement,
