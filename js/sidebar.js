@@ -1,5 +1,5 @@
 import {
-  imagesArray,
+  getImagesArrayElement,
   focussedImageDetails,
   getTitleSubParts,
 } from "./utility.js";
@@ -37,7 +37,7 @@ const generateImageDetailsContainer = (imageDetails) => {
     updateSidebarFocussedImage(imageDetails.index);
     focussedImageDetails.updateDetails(imageDetails.index);
     updateMainSection({
-      ...imagesArray[imageDetails.index],
+      ...getImagesArrayElement(imageDetails.index),
       index: imageDetails.index,
     });
   });

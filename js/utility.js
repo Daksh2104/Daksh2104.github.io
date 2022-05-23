@@ -29,6 +29,21 @@ const imagesArray = [
 ];
 
 /**
+ * Getter for retrieving an array containing all the elements of the imagesArray
+ * @returns Array consisting of all the imagesArray elements
+ */
+const getAllImagesArrayElements = () => {
+  return [...imagesArray];
+};
+/**
+ * Function to retrieve a particular element of the imagesArray
+ * @param imageIndex Index of the requested image
+ * @returns An object consisting of the requested image details
+ */
+const getImagesArrayElement = (imageIndex) => {
+  return imagesArray[imageIndex];
+};
+/**
  * Updates a particular element of imagesArray
  * @param imageIndex Index of the element to update
  * @param imageDetails Details of the element
@@ -41,8 +56,9 @@ const updateImagesArrayElement = (imageIndex, imageDetails) => {
  * Object which privately stores details related to focussed image.
  * @returns Returns getter and setter functions which can be used to get/ edit focussed image details.
  */
-const focussedImageDetails = (function(){
-  let isPresent = false, index = -1;
+const focussedImageDetails = (function () {
+  let isPresent = false,
+    index = -1;
   const getDetails = () => {
     return { isPresent, index };
   };
@@ -65,8 +81,9 @@ const getTitleSubParts = (title) => {
 };
 
 export {
+  getAllImagesArrayElements,
+  getImagesArrayElement,
   focussedImageDetails,
   getTitleSubParts,
-  imagesArray,
   updateImagesArrayElement,
 };
