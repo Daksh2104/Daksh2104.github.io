@@ -1,0 +1,34 @@
+{
+  "name": "first-assignment",
+  "version": "1.0.0",
+  "description": "This mobile-friendly website can be used to view various pictures which will be present in the system. A user can go through all the images at once using sidebar. If the user wants to see an enlarged view of that picture, then he/she can simply either click on it or navigate to it using up and down arrow.  The main section will contain the enlarged view of the focussed image and title of the image at the bottom. The user can click on this title and edit it as per his/her wish.",
+  "main": "./js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daksh2104/Daksh2104.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Daksh2104/Daksh2104.github.io/issues"
+  },
+  "homepage": "https://github.com/Daksh2104/Daksh2104.github.io#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.0"
+  }
+}
